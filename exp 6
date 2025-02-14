@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+int main() 
+{
+    char nt;
+    char alpha[MAX], beta[MAX];
+    printf("Enter non-terminal (A-Z): ");
+    scanf(" %c", &nt);
+    printf("Enter alpha : ");
+    scanf("%s", alpha);
+    printf("Enter beta : ");
+    scanf("%s", beta);
+    printf("\nGiven Grammar:\n");
+    printf("%c -> %c%s | %s\n", nt, nt, alpha, beta);
+    printf("\n after eliminating left recursion:\n");
+    printf("%c -> %s%c'\n", nt, beta, nt);
+    printf("%c' -> %s%c' | e\n", nt, alpha, nt);    
+	return 0;
+}
