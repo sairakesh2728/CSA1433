@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 100
+
+typedef struct {
+    char op[3];   // Operator
+    char arg1[10]; // First operand
+    char arg2[10]; // Second operand
+    char result[10]; // Result variable
+} TAC;
+
+// Function to generate a new temporary variable
+char* newTemp(int tempCount) {
+    static char temp[10];
+    sprintf(temp, "t%d", tempCount);
+    return temp;
+}
+
+// Function to generate three-address code for a simple expression
+void generateTAC(char* expression) {
+    TAC tac[MAX];
+    int tempCount = 0;
+    char* token = strtok(expression, " ");
+    
+    while (token != NULL) {
+        if (strcmp(token, "+") == 0 || strcmp(token, "-") == 0 || 
+            strcmp(token, "*") == 0 || strcmp(token, "/") == 0) {
+            strcpy(tac[tempCount].op, token);
+            strcpy(tac[tempCount].arg1, newTemp(tempCount - 1));
+            strcpy(tac[tempCount].arg2, newTemp(tempCount - 2));
+            sprintf(tac[tempCount].result, "t%d", tempCount);
+            printf("%s = %s %s %s\n", tac[tempCount].result, tac[tempCount].arg1, tac[tempCount].op, tac[tempCount].arg2);
+            tempCount++;
+        } else {
+            if (tempCount > 0) {
+                sprintf(tac[tempCount - 1].arg2, "%s", token);
+            } else {
+                strcpy(tac[tempCount].result, token);
+                tempCount++;
+            }
+        }
+        token = strtok(NULL, " ");
+    }
+}
+
+int main() {
+    char expression[MAX];
+    
+    printf("Enter an expression (use spaces between operands and operators): ");
+    fgets(expression, sizeof(expression), stdin);
+    
+    generateTAC(expression);
+    
+    return 0;
+}
