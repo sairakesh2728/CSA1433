@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() 
+{
+    char expression[100];
+    char operators[100];
+    int i, j = 0;
+
+    printf("Enter an arithmetic expression: ");
+    fgets(expression, sizeof(expression), stdin);
+
+    for (i = 0; expression[i] != '\0'; i++) 
+	{
+        if (expression[i] == '+' || expression[i] == '-' ||
+            expression[i] == '*' || expression[i] == '/') 
+			{
+            operators[j++] = expression[i];
+			}
+    }
+
+    operators[j] = '\0'; 
+
+    if (strlen(operators) > 0) 
+	{
+        printf("Operators found: %s\n", operators);
+    } else {
+        printf("No operators found in the expression.\n");
+    }
+
+    return 0;
+}
