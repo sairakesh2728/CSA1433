@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+char lookahead;
+
+void match(char t) {
+    if (lookahead == t) {
+        lookahead = getchar();
+    } else {
+        printf("Syntax error: expected '%c' but found '%c'\n", t, lookahead);
+        exit(1);
+    }
+}
+void E();
+void T();
+void F();
+
+void E() {
+    T();
+    while (lookahead == '+' || lookahead == '-') {
+        match(lookahead);
+        T();
+    }
+}
+
+void T() {
+    F();
+    while (lookahead == '*' || lookahead == '/') {
+        match(lookahead);
+        F();
+    }
+}
+
+void F() {
+    if (isdigit(lookahead)) {
+        match(lookahead);
+    } else if (lookahead == '(') {
+        match('(');
+        E();
+        match(')');
+    } else {
+        printf("Syntax error: unexpected '%c'\n", lookahead);
+        exit(1);
+    }
+}
+
+int main() {
+    printf("Enter an expression: ");
+    lookahead = getchar();
+    E();
+    if (lookahead == '\n') {
+        printf("Input is valid.\n");
+    } else {
+        printf("Syntax error: unexpected '%c'\n", lookahead);
+    }
+    return 0;
+}
