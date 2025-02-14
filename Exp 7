@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+int main() 
+{
+    char nt;
+    char common[MAX], beta1[MAX], beta2[MAX];
+    printf("Enter non-terminal (A-Z): ");
+    scanf(" %c", &nt);
+    printf("Enter common (a): ");
+    scanf("%s", common);
+    printf("Enter first(b1): ");
+    scanf("%s", beta1);
+    printf("Enter secon (b2): ");
+    scanf("%s", beta2);
+    printf("\n after eliminating :\n");
+    printf("%c' -> %s%c'\n", nt, common, nt);
+    printf("%c' -> %s | %s\n", nt, beta1, beta2);
+    return 0;
+}
