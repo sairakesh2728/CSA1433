@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+void optimizedFunction(int a, int b, int c) {
+    int original1 = (a + b) * c;
+    int original2 = (a + b) * b;
+    
+    int common = a + b;
+    int optimized1 = common * c;
+    int optimized2 = common * b;
+    
+    printf("Original1: %d, Original2: %d\n", original1, original2);
+    printf("Optimized1: %d, Optimized2: %d\n", optimized1, optimized2);
+}
+
+int main() {
+    int a = 2, b = 3, c = 4;
+    optimizedFunction(a, b, c);
+    return 0;
+}
